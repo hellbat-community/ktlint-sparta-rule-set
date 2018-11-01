@@ -1,0 +1,1 @@
+# ktlint-sparta-rule-set
