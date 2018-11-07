@@ -1,0 +1,15 @@
+package org.anything.pl
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.anything.bs.BS
+import org.anything.model.Model
+import org.anything.pl.dto.Dto
+import org.anything.pl.enums.EnumsType
+import org.anything.pl.enums.Type
+import org.anything.pl.enums.AType
+import org.anything.pl.output.Factory
+import org.anything.pl.output.dto.OutputDto
+import org.anything.bs.ServiceBS
+import org.anything.pl.event.StateEvent
+
+class testPl {}

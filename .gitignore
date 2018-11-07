@@ -1,0 +1,12 @@
+/.idea
+*.iml
+/.settings
+.project
+.classpath
+/bin
+/target
+rebel.xml
+rebel-remote.xml
+.rebel*
+*.log
+*.log.zip

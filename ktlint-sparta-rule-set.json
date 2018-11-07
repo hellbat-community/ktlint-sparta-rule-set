@@ -1,0 +1,35 @@
+{
+    "java-doc": true,
+    "max-depth-nested": 2,
+    "cyclomatic-complexity": 2,
+    "max-line-length": 120,
+    "class-name-contains": [
+        {
+            "param-name": "end",
+            "package-name": "rules",
+            "name-part": "Rule"
+        }
+    ],
+    "node-body-max-length-rule": [
+        {
+            "type": "class",
+            "max-length": 30
+        },
+        {
+            "type": "fun",
+            "max-length": 30
+        }
+    ],
+    "node-name-length-rule": [
+        {
+            "type": "class",
+            "max-length": 30
+        },
+        {
+            "type": "fun",
+            "max-length": 30
+        }
+    ],
+    "max-fun-arguments": 3,
+    "fun-name-pattern": "[a-z][a-zA-Z]*"
+}

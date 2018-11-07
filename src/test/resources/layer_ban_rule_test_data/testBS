@@ -1,0 +1,15 @@
+package org.anything.bs.sas
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.anything.bs.BS
+import org.anything.model.Model
+import org.anything.pl.dto.Dto
+import org.anything.pl.enums.EnumsType
+import org.anything.pl.enums.Type
+import org.anything.da.enums.AType
+import org.anything.da.output.Factory
+import org.anything.da.output.dto.OutputDto
+import org.anything.bs.ServiceBS
+import org.anything.pl.event.StateEvent
+
+class testBS {}

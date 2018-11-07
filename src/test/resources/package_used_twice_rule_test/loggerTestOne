@@ -1,0 +1,26 @@
+package Test
+
+import org.anything.model.AB
+import org.anything.pl.dto.Dto
+import org.slf4j.Logger
+import org.anything.pl.enums.Type
+import org.anything.pl.enums.WithdrawType
+
+
+class Test {
+    val logger = Logger();
+
+    fun NiceLogger() {
+        logger.info("1");
+
+
+
+        //12312312
+        /*
+            Вообще любой гавнокод, только пробелов если много оставить между логерами
+            some comments
+        */
+
+        logger.info("2");
+    }
+}

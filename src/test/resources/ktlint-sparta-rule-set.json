@@ -1,0 +1,69 @@
+{
+    "java-doc" : true,
+    "max-depth-nested": 2,
+    "cyclomatic-complexity": 2,
+    "max-line-length": 120,
+    "package-not-use-twice": [
+        "org.slf4j.Logger"
+    ],
+    "ban-layers": [
+        {
+            "goal": "pl",
+            "root": "org.anything",
+            "unexpected-layers": [
+                "pl",
+                "bs",
+                "da"
+            ]
+        },
+        {
+            "goal": "da",
+            "root": "org.anything",
+            "unexpected-layers": [
+                "pl",
+                "bs"
+            ]
+        },
+        {
+            "goal": "bs",
+            "root": "org.anything",
+            "unexpected-layers": [
+                "da"
+            ]
+        }
+    ],
+    "class-name-contains" :[
+        {
+            "param-name": "end",
+            "package-name": "form",
+            "name-part": "Form"
+        },
+        {
+            "param-name": "start",
+            "package-name": "ui",
+            "name-part": "UI"
+        }
+    ],
+    "max-fun-arguments" :5,
+    "fun-name-pattern" : "[a-z][a-zA-Z]*",
+    "node-body-max-length-rule" : [
+        {
+            "type": "class",
+            "max-length": 7
+        },
+        {
+            "type": "fun",
+            "max-length": 20
+        }
+    ],
+    "node-name-length-rule" :[
+        {
+            "type": "class",
+            "max-length": 5
+        },
+        {
+            "type": "fun",
+            "max-length": 10
+        }
+    ]
+}

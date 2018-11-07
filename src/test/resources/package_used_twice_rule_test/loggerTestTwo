@@ -1,0 +1,19 @@
+package Test
+
+import org.slf4j.Logger
+
+class Test {
+    val logger = Logger();
+
+    fun NiceLogger() {
+        logger.info("1");
+        some code
+        logger.info("2");
+
+
+    }
+
+    fun NiceLogger1() {
+        logger.info("1");
+    }
+}
