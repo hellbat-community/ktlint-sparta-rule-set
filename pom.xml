@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>hellbat-community</groupId>
+    <groupId>com.github.hellbat-community</groupId>
     <artifactId>ktlint-sparta-rule-set</artifactId>
     <version>0.0.16</version>
     <packaging>jar</packaging>
@@ -12,6 +12,11 @@
         <kotlin.version>1.2.41</kotlin.version>
         <ktlint.version>0.23.1</ktlint.version>
     </properties>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
     <dependencies>
         <dependency>
             <groupId>com.github.shyiko.ktlint</groupId>
