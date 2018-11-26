@@ -11,7 +11,7 @@ class CycloComplexityRuleTest {
     @Test
     fun ruleTest() {
         val rule = CycloComplexityRule(getFileConfigJSON(TEST_PATH).cyclomaticComplexity)
-        val complexClass = this::class.java.getResource("/cyclo_complex_test_data/Complex.kt").readText()
+        val complexClass = this::class.java.getResource("/cyclo_complex_test_data/Complex").readText()
         val lintErrorList = rule.lint(complexClass).filter { error -> error.ruleId == rule.id }
 
         assertEquals(lintErrorList.size, 3)

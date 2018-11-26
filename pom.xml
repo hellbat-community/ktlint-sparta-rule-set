@@ -3,20 +3,79 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.github.hellbat-community</groupId>
     <artifactId>ktlint-sparta-rule-set</artifactId>
     <version>0.0.16</version>
     <packaging>jar</packaging>
+
+    <name>ktlint-sparta-rule-set</name>
     <url>https://github.com/hellbat-community/ktlint-sparta-rule-set</url>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:hellbat-community/ktlint-sparta-rule-set.git</connection>
+        <developerConnection>scm:git:git@github.com:hellbat-community/ktlint-sparta-rule-set.git</developerConnection>
+        <url>https://github.com/hellbat-community/ktlint-sparta-rule-set</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>Stashevsky</id>
+            <email>ikomarov_ivan@mail.ru</email>
+            <name>Komarov Ivan Ed.</name>
+        </developer>
+    </developers>
+
     <properties>
         <kotlin.version>1.2.41</kotlin.version>
         <ktlint.version>0.23.1</ktlint.version>
     </properties>
+
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
+    <profiles>
+        <profile>
+            <id>sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <configuration>
+                            <passphrase>${gpg.passphrase}</passphrase>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>com.github.shyiko.ktlint</groupId>
@@ -26,7 +85,7 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jre7</artifactId>
+            <artifactId>kotlin-stdlib-jdk7</artifactId>
             <version>${kotlin.version}</version>
             <scope>compile</scope>
         </dependency>
