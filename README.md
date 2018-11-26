@@ -13,7 +13,7 @@
     </executions>
     <dependencies>
         <dependency>
-            <groupId>if группы пока не существет</groupId>
+            <groupId>com.github.hellbat-community</groupId>
             <artifactId>ktlint-sparta-rule-set</artifactId>
             <version>...</version>
         </dependency>
