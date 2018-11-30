@@ -1,0 +1,25 @@
+
+class ModifierTest {
+    @Autowired
+    private lateinit var bankProductService: BankProductService
+
+    @Autowired
+    private lateinit var personService: PersonService
+
+    override fun getOutputDto(){
+        val dto = SelectProductDto()
+
+        return dto
+    }
+
+    private override fun createOutputFactory () {
+        return SelectProductOutputFactory(getOutputDto())
+    }
+
+    override fun processError() {
+    }
+
+    private fun mapProducts(products: List<Product>): List<ProductDto> {
+        return products.map { product -> ProductDto() }
+    }
+}

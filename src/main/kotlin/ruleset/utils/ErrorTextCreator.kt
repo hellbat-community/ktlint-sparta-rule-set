@@ -1,12 +1,10 @@
 package ruleset.utils
 
-import org.jetbrains.kotlin.KtNodeTypes
-import org.jetbrains.kotlin.KtNodeTypes.OBJECT_DECLARATION
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import ruleset.constant.ErrorBuilderNameType.CLASS
-import ruleset.constant.ErrorBuilderNameType.OBJECT
-import ruleset.constant.ErrorBuilderNameType.NODE
-import ruleset.constant.ErrorBuilderNameType.FUN
+import ruleset.enums.Node.CLASS
+import ruleset.enums.Node.OBJECT
+import ruleset.enums.Node.NODE
+import ruleset.enums.Node.FUN
 
 /**
  * Создает тект ошибки по шаблону
@@ -41,11 +39,20 @@ class ErrorTextCreator(private val template: String) {
      *
      * @return : String
      */
-    fun createTextByNode(node: ASTNode): String = text
-        .replace(CLASS, getValue(CLASS, node))
-        .replace(OBJECT, getValue(OBJECT, node))
-        .replace(FUN, getValue(FUN, node))
-        .replace(NODE, getValue(NODE, node))
+    fun createTextByNode(node: ASTNode): String {
+        val text = text
+            .replace(CLASS.text, CLASS.getNodeName(node))
+            .replace(OBJECT.text, OBJECT.getNodeName(node))
+            .replace(FUN.text, FUN.getNodeName(node))
+
+        val name = NODE.getNodeName(node)
+
+        if (name.isEmpty()) {
+            return text.replace(NODE.text, "node")
+        }
+
+        return text.replace(NODE.text, name)
+    }
 
     /**
      * Получить текст ошибки по массиву свойств
@@ -60,13 +67,5 @@ class ErrorTextCreator(private val template: String) {
         }
 
         return text
-    }
-
-    private fun getValue(key: String, node: ASTNode): String = when (key) {
-        CLASS -> getNodeNameByIdentifier(node, KtNodeTypes.CLASS)
-        OBJECT -> getNodeNameByIdentifier(node, OBJECT_DECLARATION)
-        FUN -> getNodeNameByIdentifier(node, KtNodeTypes.FUN)
-        NODE -> getNameByIdentifier(node)
-        else -> getNameByIdentifier(node)
     }
 }

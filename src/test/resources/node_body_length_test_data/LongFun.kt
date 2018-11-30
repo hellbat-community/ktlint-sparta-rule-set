@@ -1,5 +1,3 @@
-package node_body_length_test_data
-
 class LongFun {
     /**
      * testFunc

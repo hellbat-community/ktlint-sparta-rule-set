@@ -1,5 +1,3 @@
-package fun_name_rule_test_data
-
 class Test {
     fun goodFunName() { var v = "var" }
     fun badFunName1() { var v = "var" }

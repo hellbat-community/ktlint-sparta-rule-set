@@ -1,5 +1,3 @@
-package java_docs_rule_test_data
-
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 

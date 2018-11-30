@@ -1,5 +1,6 @@
 package ruleset.utils
 
+import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.KtNodeTypes.ANNOTATION_ENTRY
 import org.jetbrains.kotlin.KtNodeTypes.VALUE_PARAMETER_LIST
 import org.jetbrains.kotlin.KtNodeTypes.VALUE_PARAMETER
@@ -7,6 +8,8 @@ import org.jetbrains.kotlin.KtNodeTypes.MODIFIER_LIST
 import org.jetbrains.kotlin.KtNodeTypes.CONSTRUCTOR_CALLEE
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
+import org.jetbrains.kotlin.kdoc.lexer.KDocTokens
+import org.jetbrains.kotlin.kdoc.parser.KDocElementTypes
 import org.jetbrains.kotlin.lexer.KtTokens.WHITE_SPACE
 import org.jetbrains.kotlin.lexer.KtTokens.DOC_COMMENT
 import org.jetbrains.kotlin.lexer.KtTokens.EOL_COMMENT
@@ -18,21 +21,20 @@ import org.jetbrains.kotlin.psi.psiUtil.parents
 /**
  * Получить все узлы родителя
  *
- * @param anchor: ASTNode
  * @param type: IElementType
  *
  * @return : List<ASTNode>
  */
-fun findAllChildNodes(anchor: ASTNode, type: IElementType): List<ASTNode> {
+fun ASTNode.findAllChildNodes(type: IElementType): List<ASTNode> {
     val result = ArrayList<ASTNode>()
-    var node = anchor.firstChildNode
+    var node = this.firstChildNode
 
     while (node != null) {
         if (node.elementType.equals(type)) {
             result.add(node)
         }
 
-        result.addAll(findAllChildNodes(node, type))
+        result.addAll(node.findAllChildNodes(type))
 
         node = node.treeNext
     }
@@ -43,78 +45,69 @@ fun findAllChildNodes(anchor: ASTNode, type: IElementType): List<ASTNode> {
 /**
  * Получить массив нод аргументов переданных в метод/конструктор
  *
- * @param node нода метода/конструктора
- *
  * @return : List<ASTNode>
  */
-fun getParamNodes(node: ASTNode): List<ASTNode> {
-    val paramList = node.findChildByType(VALUE_PARAMETER_LIST) ?: return listOf()
+fun ASTNode.getParamNodes(): List<ASTNode> {
+    val paramNode = this.findChildByType(VALUE_PARAMETER_LIST) ?: return listOf()
 
-    return findAllChildNodes(paramList, VALUE_PARAMETER)
+    return paramNode.findAllChildNodes(VALUE_PARAMETER)
 }
 
 /**
  * Получить имя ноды по типу и IDENTIFIER
  *
- * @param node Сама нода либо нода находящаяся внутри нужной
  * @param nodeType Тип ноды имя которой нужно найти
  *
  * @return : String
  */
-fun getNodeNameByIdentifier(node: ASTNode, nodeType: IElementType): String {
-    var classNode = node
+fun ASTNode.getNodeNameByIdentifier(nodeType: IElementType): String {
+    var classNode = this
 
-    if (node.elementType != nodeType) {
-        classNode = node.parents().find { it.elementType == nodeType } ?: return "undefined"
+    if (this.elementType != nodeType) {
+        classNode = this.parents().find { it.elementType == nodeType } ?: return ""
     }
 
-    return getNameByIdentifier(classNode)
+    return classNode.getNameByIdentifier()
 }
 
 /**
  * Получить наименование, чего либо, по объекту IDENTIFIER
  *
- * @param node: ASTNode
- *
  * @return : String
  */
-fun getNameByIdentifier(node: ASTNode): String = node.findChildByType(IDENTIFIER)?.text ?: "undefined"
+fun ASTNode.getNameByIdentifier(): String = this.findChildByType(IDENTIFIER)?.text ?: ""
 
 /**
  * Имеет модификатор проперти
  *
- * @param node Нода
  * @param modifier Модификатор
  */
-fun hasPropertyModifier(node: ASTNode, modifier: IElementType): Boolean {
-    if (node.firstChildNode.elementType != MODIFIER_LIST) return false
+fun ASTNode.hasPropertyModifier(modifier: IElementType): Boolean {
+    if (this.firstChildNode.elementType != MODIFIER_LIST) return false
 
-    return node.firstChildNode.findChildByType(modifier) != null
+    return this.firstChildNode.findChildByType(modifier) != null
 }
 
 /**
  * Имеет аннотацию
  *
- * @param node Нода
  * @param annotationNames Имя аннотации
  *
  * @return : Boolean
  */
-fun hasAnyAnnotation(node: ASTNode, vararg annotationNames: String) = findAllChildNodes(node, ANNOTATION_ENTRY).any {
-    val annotationNameNode = it.findChildByType(CONSTRUCTOR_CALLEE) ?: return false
+fun ASTNode.hasAnyAnnotation(vararg annotationNames: String) = this.findAllChildNodes(ANNOTATION_ENTRY).any {
+    val constructorCalleeNode = it.findChildByType(CONSTRUCTOR_CALLEE) ?: return false
 
-    annotationNames.contains(findAllChildNodes(annotationNameNode, IDENTIFIER).first().text)
+    annotationNames.contains(constructorCalleeNode.findAllChildNodes(IDENTIFIER).first().text)
 }
 
 /**
  * Получить тело узла исключив комментарии
  *
- * @param node: ASTNode
- *
  * @return : List<ASTNode>
  */
-fun getBodyWithoutComments(node: ASTNode): List<ASTNode> {
-    return findAllChildNodes(node, WHITE_SPACE)
+fun ASTNode.getBodyWithoutComments(): List<ASTNode> {
+    return this.findAllChildNodes(WHITE_SPACE)
         .filter {
             containsNewLine(it.text) &&
                 it.treeParent.elementType !in listOf<IElementType>(
@@ -131,11 +124,65 @@ fun getBodyWithoutComments(node: ASTNode): List<ASTNode> {
  *
  * Работает для node.elementType === PACKAGE_DIRECTIVE
  *
- * @param node: ASTNode
- *
  * @return String
  */
-fun getPackageName(node: ASTNode): String = node.chars
+fun ASTNode.getPackageName(): String = this.chars
     .replace(Regex("(\n)|( )|(package)|(import)"), "")
     .split(".")
     .last()
+
+/**
+ * Проверить, есть ли модификатор узла по строке с именем
+ *
+ * @param modifier Строка с именем подификатора
+ *
+ * @return : Boolean
+ */
+fun ASTNode.hasModifier(modifier: String) = this.findChildByType(MODIFIER_LIST)?.chars?.contains(modifier) ?: false
+
+/**
+ * Получить документацию узла
+ *
+ * @return : ASTNode?
+ */
+fun ASTNode.getRootDocNode(): ASTNode? {
+    if (this.firstChildNode.elementType === KDocTokens.KDOC) {
+        return this.firstChildNode
+    }
+
+    val parent = this.treeParent.firstChildNode
+
+    if (parent.elementType === KDocTokens.KDOC) {
+        return parent
+    }
+
+    if (parent.elementType !== KtNodeTypes.OBJECT_DECLARATION) {
+        return null
+    }
+
+    val parentOfParentChild = this.treeParent.treeParent.firstChildNode
+
+    if (parentOfParentChild.elementType === KDocTokens.KDOC) {
+        return parentOfParentChild
+    }
+
+    return null
+}
+
+/**
+ * Получить массив нод тэгов доки
+ *
+ * @return : List<ASTNode>
+ */
+fun ASTNode.getDocTagNodes(): List<ASTNode> {
+    val tagNodes: MutableList<ASTNode> = mutableListOf()
+
+    this.getRootDocNode()
+        ?.findAllChildNodes(KDOC_SECTION)
+        ?.forEach {
+            tagNodes.addAll(it.findAllChildNodes(KDocElementTypes.KDOC_TAG))
+        }
+        ?: return tagNodes
+
+    return tagNodes
+}

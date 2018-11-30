@@ -3,8 +3,8 @@ package ruleset.dto
 import com.beust.klaxon.Json
 
 data class Rules(
-    @Json("java-doc")
-    var javaDoc: Boolean = false,
+    @Json("kotlin-doc")
+    var kotlinDoc: Boolean = false,
     @Json("max-depth-nested")
     var maxDepthNested: Int = 0,
     @Json("cyclomatic-complexity")

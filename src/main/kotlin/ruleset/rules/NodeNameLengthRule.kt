@@ -2,7 +2,7 @@ package ruleset.rules
 
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.lexer.KtTokens.IDENTIFIER
-import ruleset.constant.ErrorBuilderText
+import ruleset.constant.ErrorTextCreatorDictionary
 import ruleset.dto.Node
 import ruleset.interfaces.ValidatedRule
 import ruleset.utils.ErrorTextCreator
@@ -26,7 +26,7 @@ class NodeNameLengthRule(private val nodes: List<Node>) : ValidatedRule("node-na
             val nodeType = node.treeParent.elementType.toString()
 
             if (nodeType.toLowerCase() == element && nodeLength > it.maxLength) {
-                val error = ErrorTextCreator(ErrorBuilderText.ELEMENT_NAME_LENGTH)
+                val error = ErrorTextCreator(ErrorTextCreatorDictionary.ELEMENT_NAME_LENGTH)
                     .createTextByProps(nodeLength.toString(), it.maxLength.toString())
 
                 emit(node.startOffset, error, false)

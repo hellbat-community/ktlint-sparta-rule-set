@@ -13,7 +13,8 @@ class PackageUsedTwiceRuleTest {
 
         val complexClassOne = this::class.java.getResource("/package_used_twice_rule_test/loggerTestOne").readText()
         val complexClassTwo = this::class.java.getResource("/package_used_twice_rule_test/loggerTestTwo").readText()
-        val complexClassWithoutLogger = this::class.java.getResource("/package_used_twice_rule_test/loggerTestTwo").readText()
+        val complexClassWithoutLogger = this::class.java
+            .getResource("/package_used_twice_rule_test/loggerTestTwo").readText()
 
         val errorLogger = rule.lint(complexClassOne).filter { error -> error.ruleId == rule.id }
         val nonError = rule.lint(complexClassTwo).filter { error -> error.ruleId == rule.id }

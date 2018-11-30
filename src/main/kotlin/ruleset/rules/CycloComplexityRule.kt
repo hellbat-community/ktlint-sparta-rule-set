@@ -11,8 +11,7 @@ import org.jetbrains.kotlin.KtNodeTypes.FOR
 import org.jetbrains.kotlin.KtNodeTypes.WHEN
 import org.jetbrains.kotlin.KtNodeTypes.WHILE
 import org.jetbrains.kotlin.KtNodeTypes.DO_WHILE
-import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
-import ruleset.constant.ErrorBuilderText.CYCLOMATIC_COMPLEXITY
+import ruleset.constant.ErrorTextCreatorDictionary.CYCLOMATIC_COMPLEXITY
 import ruleset.interfaces.ValidatedRule
 import ruleset.utils.ErrorTextCreator
 
@@ -23,10 +22,7 @@ import ruleset.utils.ErrorTextCreator
 class CycloComplexityRule(private val cyclomaticComplexity: Int) : ValidatedRule("cyclomatic-complexity") {
     private var currentComplexity = 1
     private var methodName = ""
-
-    companion object {
-        val COMPLEX_INC_TYPES: ArrayList<IElementType> = arrayListOf(IF, OROR, ANDAND, FOR, WHEN, WHILE, DO_WHILE)
-    }
+    private val complexityIncrementTypes = arrayListOf(IF, OROR, ANDAND, FOR, WHEN, WHILE, DO_WHILE)
 
     override fun validate() = cyclomaticComplexity > 0
 
@@ -47,7 +43,7 @@ class CycloComplexityRule(private val cyclomaticComplexity: Int) : ValidatedRule
             currentComplexity = 1
         }
 
-        if (methodName.isNotEmpty() && COMPLEX_INC_TYPES.contains(node.elementType)) {
+        if (methodName.isNotEmpty() && complexityIncrementTypes.contains(node.elementType)) {
             currentComplexity++
         }
 

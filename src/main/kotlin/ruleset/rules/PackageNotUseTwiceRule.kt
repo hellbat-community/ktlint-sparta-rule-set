@@ -87,7 +87,8 @@ class PackageNotUseTwiceRule(private val packageNames: MutableList<String>) : Va
         currentVariableFinder = Regex(variable)
 
         return listOfLines.any {
-            it.contains(currentVariableFinder) && listOfLines[listOfLines.indexOf(it) + 1].contains(currentVariableFinder)
+            it.contains(currentVariableFinder) &&
+                listOfLines[listOfLines.indexOf(it) + 1].contains(currentVariableFinder)
         }
     }
 }

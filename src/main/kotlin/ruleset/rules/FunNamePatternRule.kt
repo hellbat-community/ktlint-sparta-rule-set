@@ -3,7 +3,7 @@ package ruleset.rules
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.lexer.KtTokens.IDENTIFIER
 import org.jetbrains.kotlin.KtNodeTypes.FUN
-import ruleset.constant.ErrorBuilderText.UNEXPECTED_METHOD_NAME
+import ruleset.constant.ErrorTextCreatorDictionary.UNEXPECTED_METHOD_NAME
 import ruleset.interfaces.ValidatedRule
 import ruleset.utils.ErrorTextCreator
 

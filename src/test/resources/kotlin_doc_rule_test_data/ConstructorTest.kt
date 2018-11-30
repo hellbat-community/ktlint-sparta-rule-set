@@ -1,5 +1,3 @@
-package java_docs_rule_test_data
-
 /**
  * GoodConstructorTest
  *
@@ -111,6 +109,23 @@ class BadConstructorFTest {
     private lateinit var value: String
 
     /**
+     *
+     */
+    constructor(arg: String) {
+        value = arg
+    }
+}
+
+/**
+ * BadConstructorGTest
+ */
+class BadConstructorGTest {
+    /**
+     * value
+     */
+    private lateinit var value: String
+    /**
+     * CONSTRUCT
      *
      */
     constructor(arg: String) {

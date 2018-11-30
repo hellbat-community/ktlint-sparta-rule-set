@@ -1,5 +1,3 @@
-package java_docs_rule_test_data
-
 object objectTest {
     const val valA: String = "valA"
 }

@@ -23,5 +23,5 @@ fun getFileConfigJSON(path: String = ""): Rules {
         return Rules()
     }
 
-    return Klaxon().parse<Rules>(propFile.inputStream())!!
+    return Klaxon().parse<Rules>(inputStream = propFile.inputStream())!!
 }

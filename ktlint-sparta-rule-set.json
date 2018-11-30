@@ -1,5 +1,5 @@
 {
-    "java-doc": true,
+    "kotlin-doc": true,
     "max-depth-nested": 2,
     "cyclomatic-complexity": 2,
     "max-line-length": 120,

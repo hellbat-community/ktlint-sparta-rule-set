@@ -3,7 +3,7 @@ package ruleset.rules
 import org.jetbrains.kotlin.KtNodeTypes.PACKAGE_DIRECTIVE
 import org.jetbrains.kotlin.KtNodeTypes.CLASS
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import ruleset.constant.ErrorBuilderText.CLASS_NAME
+import ruleset.constant.ErrorTextCreatorDictionary.CLASS_NAME
 import ruleset.dto.ClassContains
 import ruleset.interfaces.ValidatedRule
 import ruleset.utils.getPackageName
@@ -38,7 +38,7 @@ class ClassNameContainsRule(
         this.emit = emit
 
         if (node.elementType === PACKAGE_DIRECTIVE) {
-            packageName = getPackageName(node)
+            packageName = node.getPackageName()
 
             return
         }
@@ -52,7 +52,7 @@ class ClassNameContainsRule(
 
     private fun checkContains(node: ASTNode) {
         val error = ErrorTextCreator(CLASS_NAME)
-        val className = getNameByIdentifier(node)
+        val className = node.getNameByIdentifier()
 
         contains.filter {
             packageName == it.packageName

@@ -8,7 +8,7 @@ import ruleset.rules.CycloComplexityRule
 import ruleset.rules.PackageNotUseTwiceRule
 import ruleset.rules.LayersBanRule
 import ruleset.rules.LineLengthRule
-import ruleset.rules.JavaDocsRule
+import ruleset.rules.KDocRule
 import ruleset.rules.NodeBodyLengthRule
 import ruleset.rules.NodeNameLengthRule
 import ruleset.rules.ClassNameContainsRule
@@ -25,7 +25,7 @@ class BootstrapRuleSetProvider : RuleSetProvider {
         PackageNotUseTwiceRule(ruleSetConfig.packageNotUsedTwice),
         LayersBanRule(ruleSetConfig.banLayers),
         LineLengthRule(ruleSetConfig.maxLineLength),
-        JavaDocsRule(ruleSetConfig.javaDoc),
+        KDocRule(ruleSetConfig.kotlinDoc),
         NodeBodyLengthRule(ruleSetConfig.nodeBodyLength),
         NodeNameLengthRule(ruleSetConfig.nodeNameLength),
         FunArgumentsRule(ruleSetConfig.maxFunArguments),

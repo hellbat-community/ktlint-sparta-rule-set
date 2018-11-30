@@ -6,7 +6,7 @@
 
     <groupId>com.github.hellbat-community</groupId>
     <artifactId>ktlint-sparta-rule-set</artifactId>
-    <version>0.0.16</version>
+    <version>0.0.17</version>
     <packaging>jar</packaging>
 
     <name>ktlint-sparta-rule-set</name>
@@ -206,15 +206,13 @@
             <plugin>
                 <groupId>com.github.z3d1k</groupId>
                 <artifactId>ktlint-maven-plugin</artifactId>
-                <version>0.1.5</version>
+                <version>0.1.7</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>lint</goal>
                         </goals>
                         <configuration>
-                            <includes>src/**/*.kt</includes>
-                            <excludes>src/**/Generated*.kt</excludes>
                             <outputToConsole>true</outputToConsole>
                             <color>true</color>
                             <groupByFile>true</groupByFile>
@@ -234,16 +232,37 @@
             </plugin>
         </plugins>
     </build>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>dokka</id>
-            <url>http://repo.spring.io/plugins-release/</url>
-        </pluginRepository>
-    </pluginRepositories>
     <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>dokka</id>
             <url>http://repo.spring.io/plugins-release/</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>dokka</id>
+            <url>http://repo.spring.io/plugins-release/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

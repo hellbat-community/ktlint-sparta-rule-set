@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.KtNodeTypes.LAMBDA_ARGUMENT
 import org.jetbrains.kotlin.KtNodeTypes.CALL_EXPRESSION
 import org.jetbrains.kotlin.KtNodeTypes.FUNCTION_LITERAL
 import org.jetbrains.kotlin.KtNodeTypes.DOT_QUALIFIED_EXPRESSION
-import ruleset.constant.ErrorBuilderText.FUN_BLOCK_NESTING
+import ruleset.constant.ErrorTextCreatorDictionary.FUN_BLOCK_NESTING
 import ruleset.interfaces.ValidatedRule
 import ruleset.utils.ErrorTextCreator
 

@@ -1,7 +1,7 @@
 package ruleset.rules
 
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import ruleset.constant.ErrorBuilderText.ELEMENT_BODY_LENGTH
+import ruleset.constant.ErrorTextCreatorDictionary.ELEMENT_BODY_LENGTH
 import ruleset.dto.Node
 import ruleset.interfaces.ValidatedRule
 import ruleset.utils.getBodyWithoutComments
@@ -21,7 +21,7 @@ class NodeBodyLengthRule(private val nodes: List<Node>) : ValidatedRule("node-bo
         nodes.forEach {
             val element = it.type
             val nodeType = node.elementType.toString()
-            val linesSize = getBodyWithoutComments(node).size
+            val linesSize = node.getBodyWithoutComments().size
 
             if (nodeType.toLowerCase() == element && linesSize > it.maxLength) {
                 val error = ErrorTextCreator(ELEMENT_BODY_LENGTH)

@@ -2,8 +2,8 @@
  * This is the perfect class.
  * And he's the best of the best!
  *
- * @param perfectArg perfectArg
- * @param beautyString beautyString
+ * @property perfectArg perfectArg
+ * @property beautyString beautyString
  */
 class PerfectTestClass(private val perfectArg: String, beautyString: String) {
     companion object {
