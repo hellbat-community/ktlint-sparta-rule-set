@@ -1,7 +1,7 @@
 # ktlint-sparta-rule-set
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
-Проект является зависимостью для ktlint.
+Проект является зависимостью для [ktlint](https://ktlint.github.io/).
 Мы поключаем наш проект через [ktlint-maven-plugin](https://github.com/z3d1k/ktlint-maven-plugin).
 
 ### Поключение с помощью Maven
